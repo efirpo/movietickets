@@ -7,7 +7,7 @@
 
 //Business Logic
 
-function Ticket(movieName, showTime, age) {
+function movieTicket(movieName, showTime, age) {
   this.movieName = movieName;
   this.price = 13.75;
   this.showTime = showTime;
@@ -15,8 +15,8 @@ function Ticket(movieName, showTime, age) {
   this.age = age;
 }
 
-Ticket.prototype.priceCalculator = function () {
-  if (this.time == "12:45 pm" || this.time == "2:15 pm") {
+movieTicket.prototype.priceCalculator = function () {
+  if (this.showTime == "12:30 pm" || this.showTime == "2:15 pm") {
     this.price -= 2
   };
   if (this.age >= 65) {
@@ -25,7 +25,7 @@ Ticket.prototype.priceCalculator = function () {
   return this.price;
 }
 
-Ticket.prototype.ratingCalculator = function () {
+movieTicket.prototype.ratingCalculator = function () {
   if (this.movieName == "Cars" || this.movieName == "Monsters, Inc" || this.movieName == "Toy Story") {
     (this.rating).push("PG")
   }
@@ -46,8 +46,10 @@ $(document).ready(function () {
     var time = $("#showtime").val();
     var age = $("#ageVerify").val();
 
-    var newTicket = Ticket(movie, time, age);
-    $(".ticketResult").append(newTicket);
+    var newTicket = new movieTicket(movie, time, age);
+    newTicket.ratingCalculator();
+    newTicket.priceCalculator();
+    $(".ticketResult").append(newTicket).val();
     console.log(newTicket);
   });
 })
