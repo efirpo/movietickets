@@ -49,7 +49,29 @@ $(document).ready(function () {
     var newTicket = new movieTicket(movie, time, age);
     newTicket.ratingCalculator();
     newTicket.priceCalculator();
-    $(".ticketResult").append(newTicket).val();
+    if (newTicket.rating == "R" && newTicket.age < 18) {
+      $("#sorry").show();
+      $(".ticketResult").text("");
+    }
+    else {
+      $(".ticketResult").text("");
+      $(".ticketResult").append(newTicket.movieName + "<br>").val();
+      $(".ticketResult").append("Price:" + newTicket.price + "<br>").val();
+      $(".ticketResult").append("Rating:" + newTicket.rating + "<br>").val();
+      $(".ticketResult").append("Show Time:" + newTicket.showTime + "<br>").val();
+      if (newTicket.age > 65 && newTicket.showTime == "12:30 pm" || newTicket.age > 65 && newTicket.showTime == "2:15 pm") {
+        $(".ticketResult").append("You got the Matinee and Senior Discounts!")
+      }
+      else if (newTicket.showTime == "12:30 pm" || newTicket.showTime == "2:15 pm") {
+        $(".ticketResult").append("You got the Matinee Discount!")
+      }
+      else if (newTicket.age > 65) {
+        $(".ticketResult").append("You got the Senior Discount!")
+      }
+
+      $("#sorry").hide();
+    }
     console.log(newTicket);
+
   });
 })
